@@ -1,0 +1,165 @@
+server {
+    listen 80;
+    server_name euptop.com;
+
+    # Redirect HTTP to HTTPS
+    return 301 https://$host$request_uri;
+
+    server_tokens off;
+
+    # Add HSTS header
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header X-Frame-Options "DENY" always; 
+    add_header Cache-Control "no-cache, no-store, must-revalidate";
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Referrer-Policy "same-origin";
+
+    access_log  /var/log/nginx/euptop-access.log;
+    error_log   /var/log/nginx/euptop-error.log;
+
+    location / {
+        proxy_pass http://127.0.0.1:8069;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Host $host;
+	proxy_cookie_path / "/; secure; HttpOnly; SameSite=Strict";
+	proxy_hide_header X-Frame-Options;
+	proxy_hide_header X-Runtime;
+	proxy_hide_header X-powered-by;
+	autoindex off;
+        proxy_redirect off;
+    }
+}
+
+# HTTPS server block
+server {
+    listen 443 ssl http2;
+    server_name euptop.com;
+
+    server_tokens off;
+
+    ssl_certificate /etc/letsencrypt/live/euptop.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/euptop.com/privkey.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_timeout 10m;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_tickets off;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+
+    resolver 8.8.8.8 8.8.4.4 valid=300s;
+    resolver_timeout 5s;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header X-Frame-Options "DENY" always; 
+    add_header Cache-Control "no-cache, no-store, must-revalidate";
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Referrer-Policy "same-origin";
+
+    access_log  /var/log/nginx/euptop-ssl-access.log;
+    error_log   /var/log/nginx/euptop-ssl-error.log;
+
+    location / {
+        proxy_pass http://127.0.0.1:8069;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Host $host;
+	proxy_cookie_path / "/; secure; HttpOnly; SameSite=Strict";
+	proxy_hide_header X-Frame-Options;
+	proxy_hide_header X-Runtime;
+	proxy_hide_header X-powered-by;
+	autoindex off;
+        proxy_redirect off;
+    }
+}
+server {
+    listen 80;
+    server_name djcpa.euptop.com;
+
+    # Redirect HTTP to HTTPS
+    return 301 https://$host$request_uri;
+
+    server_tokens off;
+
+    # Add HSTS header
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header X-Frame-Options "DENY" always; 
+    add_header Cache-Control "no-cache, no-store, must-revalidate";
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Referrer-Policy "same-origin";
+
+    access_log  /var/log/nginx/euptop-access.log;
+    error_log   /var/log/nginx/euptop-error.log;
+
+    location / {
+        proxy_pass http://127.0.0.1:8069;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Host $host;
+	proxy_cookie_path / "/; secure; HttpOnly; SameSite=Strict";
+	proxy_hide_header X-Frame-Options;
+	proxy_hide_header X-Runtime;
+	proxy_hide_header X-powered-by;
+	autoindex off;
+        proxy_redirect off;
+    }
+}
+
+
+server {
+    listen 443 ssl http2;
+    server_name djcpa.euptop.com;
+
+    server_tokens off;
+
+    ssl_certificate /etc/letsencrypt/live/djcpa.euptop.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/djcpa.euptop.com/privkey.pem;
+
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_timeout 10m;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_tickets off;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+
+    resolver 8.8.8.8 8.8.4.4 valid=300s;
+    resolver_timeout 5s;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+    add_header X-Frame-Options "DENY" always; 
+    add_header Cache-Control "no-cache, no-store, must-revalidate";
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header Referrer-Policy "same-origin";
+
+    access_log  /var/log/nginx/euptop-ssl-access.log;
+    error_log   /var/log/nginx/euptop-ssl-error.log;
+
+    location / {
+        proxy_pass http://127.0.0.1:8069;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-Host $host;
+	proxy_cookie_path / "/; secure; HttpOnly; SameSite=Strict";
+	proxy_hide_header X-Frame-Options;
+	proxy_hide_header X-Runtime;
+	proxy_hide_header X-powered-by;
+	autoindex off;
+        proxy_redirect off;
+    }
+}
