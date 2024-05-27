@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name euptop.com;
+    server_name domain.com;
 
     # Redirect HTTP to HTTPS
     return 301 https://$host$request_uri;
@@ -37,7 +37,7 @@ server {
 # HTTPS server block
 server {
     listen 443 ssl http2;
-    server_name euptop.com;
+    server_name domain.com;
 
     server_tokens off;
 
@@ -82,7 +82,7 @@ server {
 }
 server {
     listen 80;
-    server_name djcpa.euptop.com;
+    server_name tt.domain.com;
 
     # Redirect HTTP to HTTPS
     return 301 https://$host$request_uri;
@@ -119,7 +119,7 @@ server {
 
 server {
     listen 443 ssl http2;
-    server_name djcpa.euptop.com;
+    server_name tt.domain.com;
 
     server_tokens off;
 
