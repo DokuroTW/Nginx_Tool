@@ -1,7 +1,7 @@
 # Nginx_Tool
-Nginx config黨
+Nginx config檔
 
-此設定檔包含了對資安基本的設定，透過ZAP攻擊驗證，但只有部分有效建議還是使用WAF
+此設定檔包含了對資安基本的設定，透過ZAP攻擊驗證，修復了大部分資安上的問題，但還是有部分沒辦法解決，建議預算充裕下還是使用WAF會比較好
 
 # server leaks version information via 'server' http Response header field  
     server_tokens off;
